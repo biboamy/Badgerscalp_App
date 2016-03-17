@@ -1,0 +1,30 @@
+<ion-view title="Current Bids" hide-back-button="true">
+
+	<ion-nav-buttons side="left">
+       <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+
+    <ion-nav-buttons side="right">
+    </ion-nav-buttons>
+
+	<ion-content class="has-header" scroll="true">
+		<ion-list>
+			<ion-item class="item-thumbnail-left" 
+			collection-repeat="ticket in tickets | userBids:bids | orderBy:'-$id'" 
+			item-width="device" 
+			item-height="100px"
+			ui-sref="app.bid({listingId:ticket.$id})">
+
+				<img ng-if="ticket.image == ''" src="./img/ticket.png">
+                <img ng-if="ticket.image  != ''" ng-src="data:image/jpeg;base64,{{ticket.image}}" />
+				<p style="float:right">{{localDate(ticket.date)}}</p>
+				<h2>{{ticket.title}}</h2>
+				<p>Asking Price: <b>${{ticket.price}}</b></p>
+				<p>Current Offer: <b>${{getYourBid(ticket.$id)}}</b></p>
+				<ion-option-button class="button-assertive">
+			    	<i class="icon ion-trash-a"></i>
+			    </ion-option-button>
+			</ion-item>
+		</ion-list>
+	</ion-content> 
+</ion-view>

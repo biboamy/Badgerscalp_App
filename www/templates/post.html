@@ -1,0 +1,100 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-royal">
+        <h1 class="title">Sell Your Tickets</h1>
+        <div class="buttons">
+            <button class="button button-icon icon ion-ios-close-empty" ng-click="postModal.hide()"></button>
+        </div>
+    </ion-header-bar>
+    <div class="header-hover post-hover"></div>
+
+	<ion-content scroll="true">
+        <form novalidate name="postForm" title="Post" ng-submit="postForm.$valid && postSale(eventTitle, eventName, eventDate, opponent, eventPrice, eventQuantity, eventType, eventDetails)">
+
+            <div class="row">
+                <div class="col col-50">
+                    <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.eventTitle.$invalid && postForm.$submitted }">
+                        <span class="input-label">Title</span>
+                        <input name="eventTitle" type="text" ng-model="eventTitle" placeholder="Title" ng-maxlength="30" required>
+                    </label>
+                    <div class="form-errors" ng-messages="postForm.eventTitle.$error" ng-if="postForm.$submitted">
+    				    <div class="form-error" ng-message="maxlength">Keep event title under 30 characters</div>
+    				</div>
+                </div>
+                <div class="col col-50">
+                    <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.eventName.$invalid && postForm.$submitted }">
+                        <span class="input-label">Event</span>
+                        <input ng-click="eventSelect()" name="eventName" type="text" ng-model="eventName" placeholder="Choose Event" required readonly>
+                    </label>
+                </div> 
+            </div>
+			
+            <div class="row">
+				<div class="col">
+                    <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.eventType.$invalid && postForm.$submitted }">
+                        <span class="input-label">Type</span>
+                        <input ng-click="typeSelect()" name="eventType" type="text" ng-model="eventType" placeholder="Type" required readonly>
+                    </label>
+                </div>
+                <div class="col">
+                    <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.eventDate.$invalid && postForm.$submitted }">
+                        <span class="input-label">Date</span>
+                        <input name="Date" type="date" placeholder="Date" ng-model="eventDate" min="{{yesterday}}" max="{{oneYear}}" required>
+                    </label>
+                </div> 
+                <div class="col">
+                    <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.opponent.$invalid && postForm.$submitted }">
+                        <span class="input-label">Opponent</span>
+                        <input name="Opponent" type="text" ng-model="opponent" placeholder="Opponent" ng-maxlength="30" required>
+                    </label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.quantity.$invalid && postForm.$submitted }">
+                        <span class="input-label">Quantity</span>
+                        <input name="quantity" type="number" placeholder="Ticket Quantity" ng-model="eventQuantity" min="1" max="99" required>
+                    </label>
+                </div>
+                <div class="col">
+                    <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.price.$invalid && postForm.$submitted }">
+                        <span class="input-label">Price</span>
+                        <input name="price" type="number" placeholder="Ticket Price" ng-model="eventPrice" min="0" required>
+                    </label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div ng-click="useCamera()"  class="col photoThumb">
+                    <i ng-if="ticketPic == ''" class="postIcon icon ion-camera"></i>
+                    <img ng-if="ticketPic != ''" class="photo" ng-src="data:image/jpeg;base64,{{ticketPic}}" />
+                </div>
+                <div class="col">
+                    <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.details.$invalid }">
+                        <span class="input-label">Details</span>
+                        <textarea name="details" placeholder="Write a short description of the event/tickets here..." ng-model="eventDetails" ng-maxlength="160"></textarea> 
+                    </label>
+                    <div class="form-errors" ng-messages="postForm.details.$error">
+                        <div class="form-error" ng-message="maxlength">Keep details under 100 characters</div>
+                    </div>
+                </div>
+            </div>
+
+                
+            <div class="row">
+                <div class="col">
+                    <div class="padding-top">
+                        <input type="submit" class="button button-block button-assertive" value="SELL"/>
+                    </div>         
+                </div>
+            </div>
+                
+           
+<!--             <div>
+                <img ng-show="picture_post !== undefined" ng-src="{{picture_post}}" style="display: block;margin-left: auto;margin-right: auto;">
+            </div> -->
+            
+            
+        </form>
+	</ion-content>
+</ion-modal-view>
